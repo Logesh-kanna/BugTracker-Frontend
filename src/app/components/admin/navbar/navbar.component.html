@@ -1,0 +1,21 @@
+<div class="navbar">
+  <div class="nav-div">
+    <div class="heading">
+      <h2>{{navName}}</h2>
+    </div>
+    <div class="logout-dropdown">
+      <div class="dropdown">
+        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <img src="../../../../assets/img/profile.png" class="profile-logo">
+        </a>
+        <div class="drop-down">
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="/admin/profile">Profile</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

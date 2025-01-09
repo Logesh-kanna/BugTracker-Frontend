@@ -1,0 +1,48 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-admin></app-sidenav-admin>
+  </div>
+  <div class="main-content">
+    <app-navbar-admin></app-navbar-admin>
+    <div class="dashboard-div">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 profile-logo-div">
+            <img src="../../../../assets/img/profile.png" class="profile">
+            <h3>{{name}}</h3>
+          </div>
+          <div class="col-md-8 profile-data">
+            <div class="info-div">
+              <div class="div1">
+                <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input type="text" class="name" readonly="readonly" matInput [(ngModel)]="name">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <input type="text" class="age" readonly="readonly" matInput [(ngModel)]="status">
+                </mat-form-field>
+              </div>
+              <div class="div2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Role</mat-label>
+                  <input type="text" class="role" readonly="readonly" matInput [(ngModel)]="role">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input type="text" class="email" readonly="readonly" matInput [(ngModel)]="email">
+                </mat-form-field>
+              </div>
+              <div class="div3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Mobile</mat-label>
+                  <input type="text" class="mobile" readonly="readonly" matInput [(ngModel)]="mobile">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+/* layout.component.css */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  background: #80808018;
+}
+
+.sidenav {
+  overflow-x: hidden;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-div {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100vh - 8vh);
+}
+
+.content1,
+.content2 {
+  display: flex;
+}
+
+.content1 h3,
+.content2 h3 {
+  font-weight: 300;
+}
+
+.content1 h4,
+.content2 h4 {
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 5px;
+}
+
+.card mat-card-subtitle {
+  font-size: 7vh;
+  text-align: end;
+  padding-top: 9px;
+}
+
+mat-card {
+  width: 20%;
+  height: 13vh;
+  margin-right: 14px;
+}
+
+.cards {
+  display: flex;
+}
+
+.card1 {
+  background-color: rgba(0, 174, 255, 0.827);
+}
+
+.card2 {
+  background-color: rgba(19, 157, 19, 0.712);
+}
+
+.card3 {
+  background-color: rgba(246, 70, 70, 0.723);
+}
+
+mat-card-title,
+mat-card-subtitle {
+  color: white;
+}
+
+.chart {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.information,
+.bug-status,
+.bug-priority {
+  /* border: 1px solid; */
+  border-radius: 10px;
+  box-shadow: rgba(200, 174, 140, 0.2) 0px 8px 24px;
+  background-color: white;
+}
+
+.bug-status,
+.bug-priority {
+  width: 49%;
+  height: 55vh;
+  padding: 10px 85px;
+  overflow: hidden;
+}
+
+.information {
+  padding: 25px 30px;
+}

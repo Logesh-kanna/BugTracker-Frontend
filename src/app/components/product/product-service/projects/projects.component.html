@@ -1,0 +1,145 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-bugtracker></app-sidenav-bugtracker>
+  </div>
+  <div class="main-content">
+    <app-navbar-bugtracker></app-navbar-bugtracker>
+    <div class="dashboard-div">
+      <div class="table-div">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 "></div>
+            <div class="col-md-6 search-div">
+              <div class="add-project-div">
+                <button class="btn btn-primary" *ngIf="isManager" (click)="openDialog()">Add
+                  Project</button>
+              </div>
+              <!-- <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" />
+              </mat-form-field> -->
+            </div>
+            <div class="table-wrapper">
+              <div class="mat-elevation-z8">
+                <mat-table [dataSource]="dataSource" matSort style="table-layout: fixed;">
+                  <ng-container matColumnDef="projectId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Project Id</mat-header-cell>
+                    <mat-cell *matCellDef="let element"><a style="color: red; cursor: pointer;"
+                        (click)="redirectToBugs(element.token)">{{element.projectId}}</a></mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="projectName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="width: 100px;"> Project Name
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="width: 100px;">{{element.projectName}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="owner">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Owner </mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.owner}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="startDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.startDate}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="endDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.endDate}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <i class="fa fa-ellipsis-v"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openDescriptionModal(element.description)">Description
+                        </button>
+                        <button mat-menu-item *ngIf="isManager" (click)="openAddUserModal(element.token)">Add User
+                        </button>
+                        <button mat-menu-item *ngIf="checkOwner(element.managerToken)"
+                          (click)="deleteProject(element.token)">Delete whole project
+                        </button>
+                        <button mat-menu-item *ngIf="!checkOwner(element.managerToken)"
+                          (click)="deleteUserProject(element.token)">Delete
+                        </button>
+                      </mat-menu>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                  <div class="mat-row" *matNoDataRow>
+                    <div class="mat-cell">No data</div>
+                  </div>
+
+                </mat-table>
+                <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+                  (page)="onPageChanged($event)">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description Modal -->
+  <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="discriptionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="discriptionModalLabel">Add User</h1>
+        </div>
+        <div class="modal-body">
+          <p style="line-height: 1.5 !important;">{{description}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Member Modal -->
+  <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addUserModalLabel">Add Member</h1>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formData" class="add-user-form">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Role</mat-label>
+              <select matNativeControl required formControlName="role" (change)="onSelectionChange($event)">
+                <option value="">Select the role</option>
+                <option value="manager">Manager</option>
+                <option value="user">User</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Select Member</mat-label>
+              <select id="dropdown" matNativeControl name="dropdown" formControlName="member">
+                <option value="">Select the member</option>
+                <option *ngFor="let user of users" value="{{user.token}}">
+                  {{ user.name }}
+                </option>
+              </select>
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+            (click)="addUser(projectToken)">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>

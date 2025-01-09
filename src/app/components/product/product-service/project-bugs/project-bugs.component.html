@@ -1,0 +1,174 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-bugtracker></app-sidenav-bugtracker>
+  </div>
+  <div class="main-content">
+    <app-navbar-bugtracker></app-navbar-bugtracker>
+    <div class="dashboard-div">
+      <div class="table-div">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 head-div">
+              <i class="material-icons" (click)="backClick()">arrow_back</i>
+              <h3 class="heading">Project : </h3>
+              <h3 class="project-name">{{projectName}}</h3>
+            </div>
+            <div class="col-md-6 search-div">
+              <div class="add-bugs-div">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBugModal">Add Bug</button>
+                <!-- Modal -->
+                <div class="modal fade" id="addBugModal" tabindex="-1" aria-labelledby="addBugModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addBugModalLabel">Add Bug</h1>
+                      </div>
+                      <div class="modal-body">
+                        <form [formGroup]="formData" class="add-bug-form">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Name</mat-label>
+                            <input type="texa" class="name" formControlName="name" matInput required>
+                          </mat-form-field>
+                          <mat-form-field class="description" appearance="outline">
+                            <mat-label>More about the bug</mat-label>
+                            <textarea matInput formControlName="description" style="height: 10vh;"></textarea>
+                          </mat-form-field>
+                          <!-- <mat-form-field appearance="fill">
+                            <mat-label>Select Role</mat-label>
+                            <select matNativeControl required (change)="onSelectionChange($event)">
+                              <option value="">Select the role</option>
+                              <option value="manager">Manager</option>
+                              <option value="user">User</option>
+                            </select>
+                          </mat-form-field> -->
+                          <mat-form-field appearance="fill">
+                            <mat-label>Assignee</mat-label>
+                            <select id="dropdown" matNativeControl name="dropdown" formControlName="assignee">
+                              <option value="">Select the member</option>
+                              <option *ngFor="let user of users" value="{{user.token}}">
+                                {{ user.name }}
+                              </option>
+                            </select>
+                          </mat-form-field>
+                          <mat-form-field appearance="fill">
+                            <mat-label>Severity</mat-label>
+                            <select matNativeControl formControlName="severity" required>
+                              <option value="">Select severity</option>
+                              <option value="Minor">Minor</option>
+                              <option value="Major">Major</option>
+                              <option value="Critical">Critical</option>
+                              <option value="ShowsTopper">ShowsTopper</option>
+                            </select>
+                          </mat-form-field>
+                          <input type="file" multiple (change)="onFilesSelected($event)">
+                          <div class="previews">
+                            <div *ngFor="let file of files; let i = index" class="file-preview">
+                              <div *ngIf="file.previewUrl">
+                                <div *ngIf="file.file.type.startsWith('image')">
+                                  <img class="file" [src]="file.previewUrl" alt="Image preview" />
+                                </div>
+                                <div *ngIf="file.file.type.startsWith('video')">
+                                  <video class="file" [src]="file.previewUrl" controls></video>
+                                </div>
+                              </div>
+                              <button class="btn btn-danger" (click)="removeFile(i)">Remove</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="addBug()"
+                          data-bs-dismiss="modal">Add</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                          (click)="closeModal()">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" />
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <div class="mat-elevation-z8">
+
+              <mat-table [dataSource]="dataSource" matSort style="table-layout: fixed;">
+                <ng-container matColumnDef="bugId">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Bug Id</mat-header-cell>
+                  <mat-cell *matCellDef="let element" [ngClass]="{'closed': checkClosed(element.status)}"><a
+                      style="color: red; cursor: pointer;"
+                      (click)="redirectToBugsInfo(element.token)">{{element.bugId}}</a></mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="bugName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="width: 100px;"> Bug Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element" [ngClass]="{'closed': checkClosed(element.status)}"
+                    style="width: 100px;">{{element.bugName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="project">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Project </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.project}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Reporter">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Reporter </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.Reporter}}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Created At </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.createdAt}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="assignee">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Assignee </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.assignee}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="dueDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.dueDate}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="priority">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Severity </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.priority}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    [ngClass]="{'closed': checkClosed(element.status)}">{{element.status}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                <div class="mat-row" *matNoDataRow>
+                  <div class="mat-cell">No data</div>
+                </div>
+
+              </mat-table>
+
+              <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="onPageChanged($event)">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

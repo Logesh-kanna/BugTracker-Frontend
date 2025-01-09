@@ -1,0 +1,27 @@
+.angular/cache/
+.angular/tmp/
+*.tsbuildinfo
+coverage/
+
+# Node.js
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# IDE/Editor files
+.vscode/
+*.suo
+*.user
+*.sln
+*.csproj
+*.vspscc
+
+# Testing
+coverage/
+*.log
+
+# Temporary files
+*.tmp
+*.swp

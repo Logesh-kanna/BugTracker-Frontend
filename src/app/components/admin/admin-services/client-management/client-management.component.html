@@ -1,0 +1,251 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-admin></app-sidenav-admin>
+  </div>
+  <div class="main-content">
+    <app-navbar-admin></app-navbar-admin>
+    <div class="content-div">
+      <mat-tab-group>
+        <!-- Active -->
+        <mat-tab label="Active">
+          <div class="table-div">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 add-div"></div>
+                <div class="col-md-6 search-div">
+                  <!-- <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" />
+                  </mat-form-field> -->
+                </div>
+              </div>
+              <div class="table-wrapper">
+                <div class="mat-elevation-z8">
+
+                  <mat-table [dataSource]="activeDataSource" matSort>
+                    <ng-container matColumnDef="sno">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> S.No</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.sno}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.contact_name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="company_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.company_name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="surname">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Company Surname </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.surname}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact_number">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Number </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.contact_number}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        {{ element.status === 'Accepted' ? 'Active': 'Disable'}}
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <button mat-icon-button disabled="{{isAdmin}}" [matMenuTriggerFor]="menu">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <!-- <button mat-menu-item
+                            (click)="onStausChange(element.status === 'Accepted' ? 'Disabled' : 'Accepted', element.token)">
+                            {{ element.status === 'Accepted' ? 'Disable' : 'Active' }}
+                          </button> -->
+                          <button mat-menu-item (click)="deleteClient(element.token)">Delete</button>
+                        </mat-menu>
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="activeDisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: activeDisplayedColumns;"></mat-row>
+
+                    <div class="mat-row" *matNoDataRow>
+                      <div class="mat-cell">No data</div>
+                    </div>
+
+                  </mat-table>
+
+                  <mat-paginator [length]="activeTotalItems" [pageSize]="activePageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onActivePageChanged($event)"></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <!-- Rejected -->
+        <mat-tab label="Rejected">
+          <div class="table-div">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 add-div"></div>
+                <div class="col-md-6 search-div">
+                  <!-- <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" />
+                  </mat-form-field> -->
+                </div>
+              </div>
+              <div class="table-wrapper">
+                <div class="mat-elevation-z8">
+
+                  <mat-table [dataSource]="rejectedDataSource" matSort>
+                    <ng-container matColumnDef="sno">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> S.No</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.sno}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.contact_name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="company_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.company_name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="surname">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Company Surname </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.surname}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact_number">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Number </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.contact_number}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <button mat-icon-button disabled="{{isAdmin}}" [matMenuTriggerFor]="menu">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="acceptRequest('Accepted', element.token)">Accept</button>
+                          <button mat-menu-item (click)="deleteClient(element.token)">Delete</button>
+                        </mat-menu>
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="rejectedDisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: rejectedDisplayedColumns;"></mat-row>
+
+                    <div class="mat-row" *matNoDataRow>
+                      <div class="mat-cell">No data</div>
+                    </div>
+
+                  </mat-table>
+
+                  <mat-paginator [length]="rejectedTotalItems" [pageSize]="rejectedPageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onRejectedPageChanged($event)"></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <!-- Requested -->
+        <mat-tab label="Requested">
+          <div class="table-div">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 add-div"></div>
+                <div class="col-md-6 search-div">
+                  <!-- <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" />
+                  </mat-form-field> -->
+                </div>
+              </div>
+              <div class="table-wrapper">
+                <div class="mat-elevation-z8">
+
+                  <mat-table [dataSource]="requestedDataSource" matSort>
+                    <ng-container matColumnDef="sno">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> S.No</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.sno}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.contact_name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="company_name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.company_name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="surname">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Company Surname </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.surname}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact_number">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Number </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.contact_number}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <button mat-icon-button disabled="{{isAdmin}}" [matMenuTriggerFor]="menu">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="acceptRequest('Accepted', element.token)">Accept</button>
+                          <button mat-menu-item (click)="onStausChange('Rejected', element.token)">Reject</button>
+                        </mat-menu>
+                      </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="requestedDisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: requestedDisplayedColumns;"></mat-row>
+
+                    <div class="mat-row" *matNoDataRow>
+                      <div class="mat-cell">No data</div>
+                    </div>
+
+                  </mat-table>
+
+                  <mat-paginator [length]="requestedTotalItems" [pageSize]="requestedPageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onRequestedPageChanged($event)"></mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

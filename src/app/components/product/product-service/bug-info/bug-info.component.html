@@ -1,0 +1,169 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-bugtracker></app-sidenav-bugtracker>
+  </div>
+  <div class="main-content">
+    <app-navbar-bugtracker></app-navbar-bugtracker>
+    <div class="dashboard-div">
+      <div class="heading-div">
+        <div class="back-icon">
+          <i class="material-icons" (click)="backClick()">arrow_back</i>
+        </div>
+        <div class="bug-id">
+          <h3 class="heading">Bug Id : </h3>
+          <h3 class="head-content">{{bugId}}</h3>
+        </div>
+        <div class="bug-name">
+          <div class="heading">Bug Name :</div>
+          <h3 class="head-content">{{bugName}}</h3>
+        </div>
+      </div>
+      <div class="description-div">
+        <div class="container">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>Description</mat-expansion-panel-header>
+              <mat-panel-description>
+                <mat-form-field class="description" appearance="outline">
+                  <mat-label>More about the bug</mat-label>
+                  <textarea matInput readonly="readonly"
+                    style="height: 10vh; color: black;">{{descriptionForm}}</textarea>
+                </mat-form-field>
+              </mat-panel-description>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+      <div class="bug-information">
+        <div class="container">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>Bug Information</mat-expansion-panel-header>
+              <mat-panel-description>
+                <form clas [formGroup]="bugInfoForm" class="bug-form">
+                  <div class="form-div">
+                    <div class="forms repoter">
+                      <h1>Reporter </h1>
+                      <mat-form-field appearance="outline">
+                        <input type="text" matInput readonly="readonly" formControlName="reporter" class="input">
+                      </mat-form-field>
+                    </div>
+                    <div class="forms assignee">
+                      <h1>Assignee </h1>
+                      <mat-form-field appearance="outline">
+                        <select matNativeControl formControlName="assignee" class="input"
+                          (change)="onAssigneeChange($event)">
+                          <option *ngFor="let option of assignees" [value]="option.token">{{option.name}}</option>
+                        </select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-div">
+                    <div class="forms severity">
+                      <h1>Severity </h1>
+                      <mat-form-field appearance="outline">
+                        <input readonly="readonly" matInput formControlName="severity" class="input">
+                      </mat-form-field>
+                    </div>
+                    <div class="forms status">
+                      <h1>Status </h1>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="currentStatus" class="input"
+                          (selectionChange)="onStatusChange($event)">
+                          <mat-option value="Open">Open</mat-option>
+                          <mat-option value="InProgress">In
+                            Progress</mat-option>
+                          <mat-option value="ToBeTested">To Be Tested</mat-option>
+                          <mat-option value="Closed">Closed</mat-option>
+                          <mat-option value="ReOpen">Re Open</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-div">
+                    <div class="forms dueDate">
+                      <h1>Created At </h1>
+                      <mat-form-field appearance="outline">
+                        <input readonly="readonly" matInput formControlName="createdAt" class="input">
+                      </mat-form-field>
+                    </div>
+                    <div class="forms dueDate">
+                      <h1>Due Date </h1>
+                      <mat-form-field appearance="outline" class="due">
+                        <input matInput readonly="readonly" formControlName="dueDate" class="input">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+              </mat-panel-description>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+      <div class="Bottom-div">
+        <mat-tab-group>
+          <mat-tab label="Attachment">
+            <div class="bottom-content-div">
+              <div class="attachment-div">
+                <mat-card>
+                  <mat-card-content>
+                    <div class="img-attachment">
+                      <div class="img-div">
+                        <ng-container *ngIf="img1 && isImage(img1); else videoTemplate1">
+                          <img class="img img1" [src]="img1" (click)="openFullscreen(img1, $event)">
+                        </ng-container>
+                        <ng-template #videoTemplate1>
+                          <ng-container *ngIf="img1">
+                            <video class="img img1" [src]="img1" (click)="openFullscreen(img1, $event)" controls>
+                            </video>
+                          </ng-container>
+                        </ng-template>
+                      </div>
+                      <div class="img-div">
+                        <ng-container *ngIf="img2 && isImage(img2); else videoTemplate2">
+                          <img class="img img2" [src]="img2" (click)="openFullscreen(img2, $event)">
+                        </ng-container>
+                        <ng-template #videoTemplate2>
+                          <ng-container *ngIf="img2">
+                            <video class="img img2" [src]="img2" (click)="openFullscreen(img2, $event)" controls>
+                            </video>
+                          </ng-container>
+                        </ng-template>
+                      </div>
+                      <div class="img-div">
+                        <ng-container *ngIf="img3 && isImage(img3); else videoTemplate3">
+                          <img class="img img3" [src]="img3" (click)="openFullscreen(img3, $event)">
+                        </ng-container>
+                        <ng-template #videoTemplate3>
+                          <ng-container *ngIf="img3">
+                            <video class="img img3" [src]="img3" (click)="openFullscreen(img3, $event)" controls>
+                            </video>
+                          </ng-container>
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div *ngIf="!checkImages()" style="text-align: center;">
+                      <h3 style="padding: 10px; margin: 0 !important;">No Attachments</h3>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+        <div *ngIf="isFullscreen" class="fullscreen-modal" (click)="closeFullscreen()">
+          <ng-container *ngIf="isImage(fullscreenImgSrc); else videoContent">
+            <img [src]="fullscreenImgSrc" class="fullscreen-img">
+          </ng-container>
+          <ng-template #videoContent>
+            <video [src]="fullscreenImgSrc" class="fullscreen-img" controls (click)="$event.stopPropagation()">
+            </video>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Use Navigation with Query Parameters to set the side nav active-->

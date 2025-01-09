@@ -1,0 +1,85 @@
+.container {
+  height: 75vh;
+  align-items: center;
+  display: flex;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  background-color: white;
+  padding: 0 70px;
+  border-radius: 50px;
+  width: 100%;
+}
+
+.main-div {
+  width: auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: #ff9559;
+}
+
+.logo-div {
+  display: flex;
+  align-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.img-logo {
+  width: 50%;
+}
+
+.logo-heading {
+  font-size: 10vh;
+  font-weight: 800;
+  color: black;
+  font-family: cursive;
+}
+
+.content-div {
+  display: flow;
+  align-content: center;
+}
+
+.content-h1 {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.content-p {
+  font-size: 3rem;
+}
+
+.content-span {
+  font-weight: 700;
+  color: #ff9559;
+}
+
+.btn-div {
+  margin: 20px 0;
+}
+
+.button-33 {
+  background-color: #ff9559;
+  border-radius: 100px;
+  font-weight: 500;
+  box-shadow: rgb(187 115 44 / 20%) 0 -25px 18px -14px inset, rgb(187 147 44 / 15%) 0 1px 2px, rgb(187 121 44 / 15%) 0 2px 4px, rgb(187 123 44 / 15%) 0 4px 8px, rgb(187 134 44 / 15%) 0 8px 16px, rgb(187 118 44 / 15%) 0 16px 32px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-right: 10px;
+}
+
+.button-33:hover {
+  box-shadow: rgba(187, 118, 44, 0.35) 0 -25px 18px -14px inset, rgba(187, 127, 44, 0.25) 0 1px 2px, rgba(187, 137, 44, 0.25) 0 2px 4px, rgba(187, 113, 44, 0.25) 0 4px 8px, rgba(187, 127, 44, 0.25) 0 8px 16px, rgba(187, 132, 44, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}

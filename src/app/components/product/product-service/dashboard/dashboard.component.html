@@ -1,0 +1,48 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-bugtracker></app-sidenav-bugtracker>
+  </div>
+  <div class="main-content">
+    <app-navbar-bugtracker></app-navbar-bugtracker>
+    <div class="dashboard-div">
+      <div class="content-div">
+        <div class="container">
+          <div class="information">
+            <div class="content">
+              <div class="content1">
+                <h3>Welcome </h3>
+                <h4>{{userName}}</h4>
+              </div>
+              <div class="content2">
+                <h3>Comapany Name : </h3>
+                <h4>{{companyName}}</h4>
+              </div>
+            </div>
+            <div class="cards">
+              <mat-card class="card1 card" appearance="outlined">
+                <mat-card-title>Projects</mat-card-title>
+                <mat-card-subtitle>{{projects}}</mat-card-subtitle>
+              </mat-card>
+              <mat-card class="card2 card" appearance="outlined">
+                <mat-card-title>Open Bugs</mat-card-title>
+                <mat-card-subtitle>{{openBugs}}</mat-card-subtitle>
+              </mat-card>
+              <mat-card class="card3 card" appearance="outlined">
+                <mat-card-title>Closed Bugs</mat-card-title>
+                <mat-card-subtitle>{{closedBugs}}</mat-card-subtitle>
+              </mat-card>
+            </div>
+          </div>
+          <div class="chart">
+            <div class="bug-status">
+              <canvas id="status" style="width:100%;"></canvas>
+            </div>
+            <div class="bug-priority">
+              <canvas id="priority" style="width:100%;"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

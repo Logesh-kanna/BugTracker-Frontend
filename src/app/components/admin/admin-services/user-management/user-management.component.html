@@ -1,0 +1,189 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-admin></app-sidenav-admin>
+  </div>
+  <div class="main-content">
+    <app-navbar-admin></app-navbar-admin>
+    <div class="content-div">
+      <div class="table-div">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 add-div">
+              <button type="button" [disabled]="isAdmin" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#addUserModal">Add
+                User</button>
+              <!-- Modal -->
+              <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="addUserModalLabel">Add User</h1>
+                    </div>
+                    <div class="modal-body">
+                      <form [formGroup]="formData" class="add-user-form">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Name</mat-label>
+                          <input type="text" class="name" formControlName="name" matInput required>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Age</mat-label>
+                          <input type="text" class="age" formControlName="age" matInput required>
+                        </mat-form-field>
+                        <!-- <mat-form-field appearance="fill">
+                          <mat-label>Role</mat-label>
+                          <select matNativeControl required formControlName="role">
+                            <option value="">Select the role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                          </select>
+                        </mat-form-field> -->
+                        <mat-form-field appearance="fill">
+                          <mat-label>Email</mat-label>
+                          <input type="text" class="email" formControlName="email" matInput required>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Mobile</mat-label>
+                          <input type="text" class="mobile" formControlName="mobile" matInput required>
+                        </mat-form-field>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="closeModal()">Close</button>
+                      <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="addUser()">Add</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 search-div">
+              <!-- <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" />
+              </mat-form-field> -->
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <mat-tab-group>
+              <!-- Admin -->
+              <mat-tab label="Admin">
+                <div class="mat-elevation-z8 admin-table">
+                  <mat-table [dataSource]="adminDataSource" matSort>
+                    <ng-container matColumnDef="sno">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> S.No</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.sno}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.email}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="mobile">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.status}} </mat-cell>
+                    </ng-container>
+
+                    <!-- <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item
+                            (click)="onStatusChange(element.status === 'Active' ? 'Inactive' : 'Active', element.token)">
+                            {{ element.status === 'Active' ? 'Deactivate' : 'Activate' }}
+                          </button>
+                        </mat-menu>
+                      </mat-cell>
+                    </ng-container> -->
+
+                    <mat-header-row *matHeaderRowDef="adminDisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: adminDisplayedColumns;"></mat-row>
+
+                    <div class="mat-row" *matNoDataRow>
+                      <div class="mat-cell">No data</div>
+                    </div>
+
+                  </mat-table>
+                  <mat-paginator [length]="adminTotalItems" [pageSize]="adminPageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onAdminPageChanged($event)"></mat-paginator>
+                </div>
+              </mat-tab>
+              <!-- User -->
+              <mat-tab label="User">
+                <div class="mat-elevation-z8 user-table">
+                  <mat-table [dataSource]="userDataSource" matSort>
+                    <ng-container matColumnDef="sno">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> S.No</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.sno}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="mobile">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.status}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <button disabled="{{isAdmin}}" mat-icon-button [matMenuTriggerFor]="menu">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item
+                            (click)="onStatusChange(element.status === 'Active' ? 'Inactive' : 'Active', element.token)">
+                            {{ element.status === 'Active' ? 'Deactivate' : 'Activate' }}
+                          </button>
+                        </mat-menu>
+                      </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="userDisplayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: userDisplayedColumns;"></mat-row>
+
+                    <div class="mat-row" *matNoDataRow>
+                      <div class="mat-cell">No data</div>
+                    </div>
+                  </mat-table>
+                  <mat-paginator [length]="userTotalItems" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                    (page)="onUserPageChanged($event)">
+                  </mat-paginator>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

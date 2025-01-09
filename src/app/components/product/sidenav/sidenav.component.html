@@ -1,0 +1,20 @@
+<mat-drawer-container class="side-nav">
+  <mat-drawer class="side-nav-drawer" mode="side" opened>
+    <div id="logo">
+      <img src="../../../../../assets/img/Logo.png" width="90px">
+      <h1 class="logo-heading">Bug Tracker</h1>
+    </div>
+
+    <div class="navigation" *ngIf="checkAdmin()">
+      <ul>
+        <li [ngClass]="{'active' : isActive('/bugtracker/dashboard')}"><a
+            routerLink="/bugtracker/dashboard">Dashboard</a>
+        </li>
+        <li [ngClass]="{'active' : isActive('/bugtracker/bugs')}"><a routerLink="/bugtracker/bugs">Bugs</a>
+        </li>
+        <li [ngClass]="{'active' : isActive('/bugtracker/project')}"><a routerLink="/bugtracker/project">
+            Projects</a></li>
+      </ul>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>

@@ -1,0 +1,72 @@
+.navbar {
+  position: relative;
+  height: 8vh;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: #ff965963 0px 3px 3px 0px;
+  top: 0;
+  width: calc(100%);
+  z-index: 1000;
+  background-color: white;
+}
+
+.heading {
+  width: 50%;
+}
+
+.heading h2 {
+  margin: 0 35px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  padding-top: 10px;
+  font-family: Georgia, serif;
+  padding: 8px 0 0 15px;
+}
+
+.nav-div {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 70px;
+  width: 100%;
+}
+
+.dropdown-toggle {
+  position: relative;
+  background: none;
+  border: none;
+  color: black;
+  margin: -5px;
+}
+
+.dropdown-menu {
+  width: 30px;
+}
+
+.drop-down {
+  position: fixed;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.profile-logo {
+  border: none;
+  border-radius: 25px;
+  background-color: none;
+  width: 40px;
+  height: 40px;
+}
+
+.logout-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.user-btn {
+  margin-right: 30px;
+}
+
+.user-btn button {
+  width: 15vh;
+}

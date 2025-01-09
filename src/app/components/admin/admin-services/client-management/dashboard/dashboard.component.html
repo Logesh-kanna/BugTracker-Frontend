@@ -1,0 +1,54 @@
+<div class="app-layout">
+  <div class="sidenav">
+    <app-sidenav-admin></app-sidenav-admin>
+  </div>
+  <div class="main-content">
+    <app-navbar-admin></app-navbar-admin>
+    <div class="dashboard-div">
+      <div class="content-div">
+        <div class="container">
+          <div class="information">
+            <div class="content">
+              <div class="content1">
+                <h3>Welcome </h3>
+                <h4>{{userName}}</h4>
+              </div>
+              <div class="content2">
+                <h3>Role </h3>
+                <h4>{{role}}</h4>
+              </div>
+            </div>
+            <div class="cards">
+              <mat-card class="card1 card" appearance="outlined">
+                <mat-card-title style="color: white;">Product Users</mat-card-title>
+                <mat-card-subtitle style="color: white;">{{accepted}}</mat-card-subtitle>
+              </mat-card>
+              <mat-card class="card2 card" appearance="outlined">
+                <mat-card-title style="color: white;">Requested</mat-card-title>
+                <mat-card-subtitle style="color: white;">{{requested}}</mat-card-subtitle>
+              </mat-card>
+              <mat-card class="card3 card" appearance="outlined">
+                <mat-card-title style="color: white;">Rejected</mat-card-title>
+                <mat-card-subtitle style="color: white;">{{rejected}}</mat-card-subtitle>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="dashboard-div">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 linear-chart">
+            <h2>Client Request</h2>
+            <canvas id="myChart" style="width:100%;height: 600px;"></canvas>
+          </div>
+          <div class="col-md-6 bar-chart">
+            <h2>Product Users</h2>
+            <canvas id="barchart" style="width:100%; height: 600px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

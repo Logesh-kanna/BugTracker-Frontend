@@ -1,0 +1,184 @@
+/* layout.component.css */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  background: #8080801c;
+}
+
+.sidenav {
+  overflow-x: hidden;
+}
+
+.material-icons {
+  cursor: default;
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-div {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100vh - 8vh);
+}
+
+.description-div,
+.bug-information,
+.Bottom-div {
+  margin: 25px 0;
+  padding: 0 30px;
+}
+
+.bug-id,
+.bug-name {
+  display: flex;
+  padding-left: 44px;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.heading {
+  font-size: 2.3vh;
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+.head-content {
+  font-size: 2.6vh;
+  margin-left: 6px;
+  margin-bottom: 0;
+}
+
+.description-form {
+  width: 100%;
+}
+
+.description {
+  width: 100%;
+  height: 15vh;
+}
+
+.btn {
+  margin: 0 10px;
+}
+
+mat-expansion-panel-header {
+  height: 10vh;
+}
+
+form {
+  display: flex;
+  width: 100%;
+}
+
+.form-div {
+  width: 50%;
+}
+
+.forms {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.due {
+  width: 61%;
+  padding-left: 16px;
+}
+
+.forms h1 {
+  font-size: 1.3rem;
+}
+
+.bottom-content-div {
+  background-color: white;
+  margin: 35px 0;
+  height: auto;
+  padding: 20px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  border-radius: 5px;
+}
+
+.add-attachment-div {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.329);
+  padding-bottom: 19px;
+}
+
+.attachment-div {
+  padding: 20px 0;
+}
+
+mat-card {
+  background: #0000000f;
+}
+
+.img-attachment,
+.img-head {
+  display: flex;
+}
+
+.img-head h3 {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.h3-span {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.img-div {
+  text-align: center;
+  width: 50%;
+}
+
+.img-div p {
+  margin: 10px 0;
+}
+
+/* img */
+
+.img {
+  width: 50%;
+  height: 20vh;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.img:hover {
+  transform: scale(1.05);
+}
+
+.fullscreen-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fullscreen-img {
+  max-width: 90%;
+  max-height: 90%;
+  cursor: pointer;
+}
+
+.input {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+}
+
+.mat-select-value {
+  color: inherit;
+}
