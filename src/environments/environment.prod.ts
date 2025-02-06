@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  adminApiBaseUrl: 'http://localhost:8081/api/',
-  productApiBaseUrl: 'http://localhost:8082/api',
+  adminApiBaseUrl: 'https://bugtracker-admin.onrender.com/api/',
+  productApiBaseUrl: 'https://bugtracker-9i69.onrender.com/api',
   cloudName: 'dxstfplms',
   uploadPreset: 'BUGTRACKER',
 };
