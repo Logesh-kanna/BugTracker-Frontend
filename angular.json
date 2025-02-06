@@ -25,6 +25,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/_redirects",
               {
                 "glob": "**/*.js",
                 "input": "src/assets/",
