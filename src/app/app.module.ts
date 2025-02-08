@@ -35,6 +35,7 @@ import { BugInfoComponent } from './components/product/product-service/bug-info/
 import { AddProjectDialogComponent } from './components/product/product-service/projects/add-project-dialog/add-project-dialog.component';
 import { UserManagementComponent as BugTrackerUserManagementComponent } from './components/product/user-management/user-management.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NotSupportedComponent } from './components/not-supported/not-supported.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     BugInfoComponent,
     AddProjectDialogComponent,
     BugTrackerUserManagementComponent,
-    LoaderComponent
+    LoaderComponent,
+    NotSupportedComponent
   ],
   imports: [
     BrowserModule,

@@ -27,33 +27,36 @@ import { ProductAuthGuard } from './shared/auth-guard/product/auth.guard';
 import { AdminGuard as ProductAdminGuard } from './shared/auth-guard/product/admin/admin.guard';
 import { UserManagementComponent as BugTrackerUserManagementComponent } from './components/product/user-management/user-management.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NotSupportedComponent } from './components/not-supported/not-supported.component';
+import { ScreensizeGuard } from './shared/auth-guard/screen/screensize.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'loader', component: LoaderComponent },
+  { path: 'not-supported', component: NotSupportedComponent },
+  { path: 'home', component: HomeComponent, canActivate: [ScreensizeGuard] },
+  { path: 'loader', component: LoaderComponent, canActivate: [ScreensizeGuard] },
 
   // Admin page
   { path: 'admin/signin', component: AdminSigninComponent },
   { path: 'admin/sidenav', component: AdminSidenav },
-  { path: 'admin/dashboard', component: AdminDashboard, canActivate: [AdminAuthGuard] },
-  { path: 'admin/profile', component: AdminProfileComponent, canActivate: [AdminAuthGuard] },
-  { path: 'admin/user-management', component: AdminUserManagementComponent, canActivate: [AdminAuthGuard] },
-  { path: 'admin/client-management', component: ClientManagementComponent, canActivate: [AdminAuthGuard] },
+  { path: 'admin/dashboard', component: AdminDashboard, canActivate: [AdminAuthGuard, ScreensizeGuard] },
+  { path: 'admin/profile', component: AdminProfileComponent, canActivate: [AdminAuthGuard, ScreensizeGuard] },
+  { path: 'admin/user-management', component: AdminUserManagementComponent, canActivate: [AdminAuthGuard, ScreensizeGuard] },
+  { path: 'admin/client-management', component: ClientManagementComponent, canActivate: [AdminAuthGuard, ScreensizeGuard] },
 
   // Product page
   { path: 'bugtracker/signup', component: SignupComponent },
   { path: 'bugtracker/signin', component: SigninComponent },
   // { path: 'bugtracker/sidenav', component: ProductSideNav, canActivate: [ProductAuthGuard] },
-  { path: 'bugtracker/user-management', component: BugTrackerUserManagementComponent, canActivate: [ProductAuthGuard] },
-  // { path: 'bugtracker/navbar', component: ProductNavBar, canActivate: [ProductAuthGuard] },
-  { path: 'bugtracker/dashboard', component: ProductDashboard, canActivate: [ProductAuthGuard, ProductAdminGuard] },
-  { path: 'bugtracker/profile', component: ProfileComponent, canActivate: [ProductAuthGuard] },
-  { path: 'bugtracker/bugs', component: BugsComponent, canActivate: [ProductAuthGuard, ProductAdminGuard] },
-  { path: 'bugtracker/project', component: ProjectsComponent, canActivate: [ProductAuthGuard, ProductAdminGuard] },
-  { path: 'bugtracker/project/bugs', component: ProjectBugsComponent, canActivate: [ProductAuthGuard, ProductAdminGuard] },
-  { path: 'bugtracker/bug/info', component: BugInfoComponent, canActivate: [ProductAuthGuard, ProductAdminGuard] },
+  { path: 'bugtracker/user-management', component: BugTrackerUserManagementComponent, canActivate: [ProductAuthGuard, ScreensizeGuard] },
+  // { path: 'bugtracker/navbar', component: ProductNavBar, canActivate: [ProductAuthGuard, ScreensizeGuard] },
+  { path: 'bugtracker/dashboard', component: ProductDashboard, canActivate: [ProductAuthGuard, ScreensizeGuard, ProductAdminGuard] },
+  { path: 'bugtracker/profile', component: ProfileComponent, canActivate: [ProductAuthGuard, ScreensizeGuard] },
+  { path: 'bugtracker/bugs', component: BugsComponent, canActivate: [ProductAuthGuard, ScreensizeGuard, ProductAdminGuard] },
+  { path: 'bugtracker/project', component: ProjectsComponent, canActivate: [ProductAuthGuard, ScreensizeGuard, ProductAdminGuard] },
+  { path: 'bugtracker/project/bugs', component: ProjectBugsComponent, canActivate: [ProductAuthGuard, ScreensizeGuard, ProductAdminGuard] },
+  { path: 'bugtracker/bug/info', component: BugInfoComponent, canActivate: [ProductAuthGuard, ScreensizeGuard, ProductAdminGuard] },
 
   // // Admin page
   // { path: 'admin/signin', component: AdminSigninComponent },
