@@ -11,6 +11,92 @@
             IN</button>
         </div>
         <p class="admin">If you are an admin page user <a routerLink="/admin/signin">Click me!</a></p>
+        <button class="about" data-bs-toggle="modal" data-bs-target="#aboutModel">
+          <h2>About <i class='fa fa-info-circle' style="color: #ff9559;"></i></h2>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="aboutModel" tabindex="-1" aria-labelledby="aboutModelLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="aboutModelLabel">ABOUT</h1>
+              </div>
+              <div class="modal-body">
+                <ul class="content-ul">
+                  <li class="content">This is a Microservices-based application built using Angular, Java Spring Boot,
+                    PostgreSQL, JWT,
+                    Cloudinary, SMTP, Eureka, and OpenFeign. The application manages an Admin Panel and a Bug
+                    Tracker
+                    system, each with distinct user roles and functionalities.
+                  </li>
+                </ul>
+                <hr>
+                <h2>Admin Panel</h2>
+                <ul class="content-ul">
+                  <li class="content">The Admin Panel is used to manage client requests and assign them to the system.
+                    It features two
+                    types of users: </li>
+                </ul>
+                <ul>
+                  <li>Admin: Responsible for reviewing and accepting client requests.</li>
+                  <li>User: A role that can view client information, which is stored in separate databases for each
+                    client.</li>
+                </ul>
+                <p>The process works as follows:</p>
+                <div class="project-info">
+                  <p> 1. User accesses and reviews client information.</p>
+                  <p> 2. The Admin reviews the information and, if everything is satisfactory, accepts the request.</p>
+                </div>
+                <hr>
+                <h2>Bug Tracker</h2>
+                <ul class="content-ul">
+                  <li class="content">The Bug Tracker is designed for managing projects, bugs, and user assignments, and
+                    includes three
+                    distinct user roles: </li>
+                </ul>
+                <ul>
+                  <li><strong>Admin:</strong> Responsible only for creating and deleting users in the system.</li>
+                  <li><strong>Manager:</strong> Responsible for handling project-related activities, bug creation, and
+                    management.</li>
+                  <li><strong>User:</strong> Works on assigned projects and resolves specific bugs.</li>
+                </ul>
+                <h3>Key Features:</h3>
+                <div class="project-info">
+                  <h4> 1. Admin Role:</h4>
+                  <ul>
+                    <li>The Admin in the Bug Tracker has limited access. They are only responsible for creating and
+                      deleting users within the system.</li>
+                  </ul>
+                  <h4> 2. Project Creation and User Assignment:</h4>
+                  <ul>
+                    <li>Manager users can create new projects, assign users to projects, and manage bugs.</li>
+                  </ul>
+                  <h4> 3. Bug Management:</h4>
+                  <div class="project-info">
+                    <p>Bugs can be created with specific details, including:</p>
+                    <ul>
+                      <li>Status</li>
+                      <li> Priority</li>
+                      <li> Due Date (automatically assigned based on priority)</li>
+                      <li> Attachments (images and videos)</li>
+                      <li> Assignment to users working on the project.</li>
+                    </ul>
+                  </div>
+                  <h4> 4. Email Notifications:</h4>
+                  <ul>
+                    <li>Customized email IDs and passwords are sent to users when they are assigned to a project or
+                      given
+                      access to the system.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-6 logo-div">
         <img src="../../../assets/img/Logo.png" class="img-logo">
