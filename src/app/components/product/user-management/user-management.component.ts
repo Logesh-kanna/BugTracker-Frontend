@@ -58,6 +58,9 @@ export class UserManagementComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.loadAdminData();
+    this.loadManagerData();
+    this.loadUserData();
     const storedData = this.storage.getData("user");
     this.roleCheck = storedData.data[0] ? storedData.data[0]['role'] : null;
     this.formData = new FormGroup({
@@ -65,9 +68,6 @@ export class UserManagementComponent implements OnInit {
       role: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email])
     });
-    this.loadAdminData();
-    this.loadManagerData();
-    this.loadUserData();
   }
 
   checkManager(): boolean {
