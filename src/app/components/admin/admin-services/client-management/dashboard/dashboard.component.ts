@@ -13,8 +13,8 @@ export class DashboardComponent implements OnInit {
 
   public chart: any;
 
-  userName: string = "Logesh";
-  role: string = "Admin";
+  userName: string = "";
+  role: string = "";
   accepted: number = 0;
   requested: number = 0;
   rejected: number = 0;
@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     const storedData = this.storage.getData("admin");
+    this.userName = storedData.data[0] ? storedData.data[0]['name'] : "";
+    this.role = storedData.data[0] ? storedData.data[0]['role'] : "";
     this.loadData();
   }
 
