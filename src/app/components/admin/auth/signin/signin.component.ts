@@ -28,11 +28,6 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  async loaderFunc() {
-    await this.delay(3000);
-    this.router.navigate(['/admin/dashboard']);
-  }
-
   delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -58,15 +53,15 @@ export class SigninComponent implements OnInit {
     }
     if (type === "admin") {
       this.authService.adminSignIn(data).subscribe({
-        next: (response) => {
+        next: async (response) => {
           this.loader = true;
           const userData = {
             data: response.data,
             loginTime: new Date().getTime()
           };
           this.storage.setData("admin", userData);
-          this.loaderFunc();
-          console.log(userData);
+          await this.delay(3000);
+          this.router.navigate(['/admin/dashboard']);
         },
         error: (error) => {
           this.swalFunc.showAlert("Failure", error.error.message, "error").then((result) => {
@@ -79,14 +74,15 @@ export class SigninComponent implements OnInit {
     }
     if (type === "user") {
       this.authService.userSignIn(data).subscribe({
-        next: (response) => {
+        next: async (response) => {
           const userData = {
             data: response.data,
             loginTime: new Date().getTime()
           };
           this.loader = true;
           this.storage.setData("admin", userData);
-          this.loaderFunc();
+          await this.delay(3000);
+          this.router.navigate(['/admin/dashboard']);
         }, error: (error) => {
           console.log("error" + error.error.message);
           this.swalFunc.showAlert("Failure", error.error.message, "error").then((result) => {
