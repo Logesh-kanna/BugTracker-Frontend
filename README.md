@@ -1,27 +1,160 @@
-# FrontEnd
+# BugTracker Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
+Angular 15 single-page application providing the UI for both the Admin panel and the Bug Tracker product. Communicates with the Admin Service (port 8081) and Product Service (port 8082) via REST APIs.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**Admin Panel**
+- Admin authentication (sign in)
+- Dashboard with overview metrics
+- Client company management (onboarding requests, approve/disable)
+- User and admin management (list, enable/disable accounts)
+- Profile management
 
-## Code scaffolding
+**Bug Tracker (Product)**
+- User registration and authentication
+- Project management (create, list, delete)
+- Bug lifecycle management (create, assign, update status)
+- Bug detail view with image attachments
+- Team member management
+- User profile
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Tech Stack
 
-## Build
+- Angular 15.2.0
+- TypeScript 4.9.4
+- Angular Material 14 (UI components)
+- Chart.js (dashboard charts)
+- SweetAlert2 (notifications and confirmations)
+- RxJS (reactive data streams)
+- Angular CLI 15.2.11
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Project Structure
 
-## Running unit tests
+```
+src/app/
+├── admin/
+│   ├── auth/               # Admin sign-in
+│   ├── dashboard/          # Admin overview (ManagerComponent)
+│   ├── user-management/    # Admin/user list and status controls
+│   ├── client-management/  # Client company management
+│   ├── profile/            # Admin profile
+│   └── sidenav/, navbar/   # Admin layout components
+├── product/
+│   ├── auth/               # User sign-up and sign-in
+│   ├── dashboard/          # Bug tracker overview
+│   ├── project-management/ # Project list and creation
+│   ├── bug-management/     # Bug list, detail, creation
+│   ├── user-management/    # Team member management
+│   ├── profile/            # User profile
+│   └── sidenav/, navbar/   # Product layout components
+├── home/                   # Landing page
+├── not-supported/          # Mobile device warning
+└── shared/
+    ├── cloudinary/         # Image upload service
+    ├── local-storage/      # Auth token management
+    └── sweet-alert/        # SweetAlert2 wrapper
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Routes
 
-## Running end-to-end tests
+| Path | Component | Guard |
+|------|-----------|-------|
+| `/home` | HomeComponent | — |
+| `/admin/signin` | Admin SigninComponent | — |
+| `/admin/dashboard` | ManagerComponent | AdminAuthGuard |
+| `/admin/user-management` | UserManagementComponent | AdminAuthGuard |
+| `/admin/client-management` | ClientManagementComponent | AdminAuthGuard |
+| `/admin/profile` | Admin ProfileComponent | AdminAuthGuard |
+| `/bugtracker/signup` | Product SignupComponent | — |
+| `/bugtracker/signin` | Product SigninComponent | — |
+| `/bugtracker/dashboard` | DashboardComponent | ProductAuthGuard |
+| `/bugtracker/project` | ProjectComponent | ProductAuthGuard |
+| `/bugtracker/project/bugs` | ProjectBugsComponent | ProductAuthGuard |
+| `/bugtracker/bugs` | BugsComponent | ProductAuthGuard |
+| `/bugtracker/bug/info` | BugInfoComponent | ProductAuthGuard |
+| `/bugtracker/user-management` | UserManagementComponent | ProductAdminGuard |
+| `/bugtracker/profile` | Product ProfileComponent | ProductAuthGuard |
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Getting Started
 
-## Further help
+### Prerequisites
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Node.js 16+
+- Angular CLI 15: `npm install -g @angular/cli@15`
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Development server
+
+```bash
+ng serve
+```
+
+Runs on `http://localhost:4200`. API calls are proxied via `proxy.conf.json`:
+
+| Prefix | Target |
+|--------|--------|
+| `/api1` | `http://localhost:8081` (Admin Service) |
+| `/api2` | `http://localhost:8082` (Product Service) |
+
+### Production build
+
+```bash
+ng build
+```
+
+Output is in the `dist/` directory.
+
+## Environment Configuration
+
+`src/environments/environment.ts` — development:
+
+```typescript
+export const environment = {
+  production: false,
+  adminApiUrl: 'http://localhost:4200/api1/api/',
+  productApiUrl: 'http://localhost:4200/api2/api/'
+};
+```
+
+`src/environments/environment.prod.ts` — production:
+
+```typescript
+export const environment = {
+  production: true,
+  adminApiUrl: 'https://bugtracker-admin.onrender.com/api/',
+  productApiUrl: 'https://bugtracker-9i69.onrender.com/api'
+};
+```
+
+## Docker
+
+The Dockerfile uses a multi-stage build — Angular build + Nginx serve:
+
+```bash
+# Build image
+docker build -t bugtracker-frontend .
+
+# Run container
+docker run -p 80:80 bugtracker-frontend
+```
+
+The app is served on port 80 in the container.
+
+## Auth Guards
+
+| Guard | Description |
+|-------|-------------|
+| `AdminAuthGuard` | Protects admin panel routes; redirects to `/admin/signin` |
+| `ProductAuthGuard` | Protects product routes; redirects to `/bugtracker/signin` |
+| `ProductAdminGuard` | Restricts manager-only features within the product |
+| `ScreensizeGuard` | Redirects to `/not-supported` on mobile screen sizes |
+
+## Image Uploads
+
+Bug attachments are uploaded directly to Cloudinary from the browser using a configured cloud name and unsigned upload preset. No server-side upload handling is needed.
